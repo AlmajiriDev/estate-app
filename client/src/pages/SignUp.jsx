@@ -28,12 +28,12 @@ export default function SignUp() {
       if (data.success === false) {
         setError(data.message);
         setLoading(false);
-        setError(null);
-        navigate("/signin");
+        console.log(error);
         return;
       }
-      console.log(data);
-      // return res
+      setLoading(false);
+      setError(null);
+      navigate("/signin");
     } catch (error) {
       setLoading(false);
       setError(error.message);
