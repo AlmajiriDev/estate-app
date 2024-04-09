@@ -7,6 +7,7 @@ export const test = (req, res) => {
 };
 
 export const updateUserById = async (req, res, next) => {
+  console.log("useeeer", req.user);
   if (req.user.id !== req.params.id)
     return next(errorHandler("401", "You can only update your own account"));
   try {

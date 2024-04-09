@@ -48,8 +48,10 @@ export default function Profile() {
       }
     );
   };
-  // console.log(formData);
-  // console.log(fileUploadError);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value});
+  };
   return (
     <div className="p-3 max-w-lg mx-auto">
       <h1 className="text-3xl font-semibold text-center my-7">Profile</h1>
@@ -84,19 +86,24 @@ export default function Profile() {
           id="username"
           type="text"
           placeholder="username"
+          defaultValue={currentUser.username}
           className="border p-3 rounded-lg"
+          onChange={handleChange}
         />
         <input
           id="email"
           type="text"
           placeholder="email"
+          defaultValue={currentUser.email}
           className="border p-3 rounded-lg"
+          onChange={handleChange}
         />
         <input
           id="password"
           type="text"
           placeholder="password"
           className="border p-3 rounded-lg"
+          onChange={handleChange}
         />
         <button className="bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80">
           update
