@@ -7,9 +7,9 @@ export const test = (req, res) => {
 };
 
 export const updateUserById = async (req, res, next) => {
-  console.log("useeeer", req.user);
+  // console.log("useeeer", req.user);
   if (req.user.id !== req.params.id)
-    return next(errorHandler("401", "You can only update your own account"));
+    return next(errorHandler(401, "You can only update your own account"));
   try {
     if (req.body.password) {
       req.body.password = bcryptjs.hashSync(req.body.password, 10);
@@ -34,6 +34,18 @@ export const updateUserById = async (req, res, next) => {
       message: "User Updated Successfully",
       user: rest,
     });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const deleteUser = async (req, res, next) => {
+  if (req.user.id !== req.params.id)
+    return next(errorHandler(401, "You can only delete your own account"));
+  try {
+    await User.findByIdAndDelete(req.params.id);
+    res.clearCookie("access_token");
+    res.status(200).json("User deleted");
   } catch (error) {
     next(error);
   }
