@@ -5,6 +5,8 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Header from "./components/Header";
 import PrivateRouteProfile from "./components/PrivateRouteProfile";
+import PrivateRouteUpdateListing from "./components/PrivateRouteUpdateListing";
+import PrivateRouteCreateListing from "./components/PrivateRouteCreateListing";
 import PrivateRouteListing from "./components/PrivateRouteListing";
 
 function App() {
@@ -17,7 +19,15 @@ function App() {
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/profile" element={<PrivateRouteProfile />} />
-        <Route path="/create-listing" element={<PrivateRouteListing />} />
+        <Route path="/create-listing" element={<PrivateRouteCreateListing />} />
+        <Route
+          path="/update-listing/:listingId"
+          element={<PrivateRouteUpdateListing />}
+        />
+        <Route
+          path="/listing/:listingId"
+          element={<PrivateRouteListing />}
+        />
       </Routes>
     </BrowserRouter>
   );

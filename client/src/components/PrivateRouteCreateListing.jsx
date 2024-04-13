@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
-import Listing from "../pages/Listing";
+import CreateListing from "../pages/CreateListing";
 
 export default function PrivateRouteCreateListing() {
   const { currentUser } = useSelector((state) => state.persistedReducer.user);
-  return currentUser ? <Listing /> : <Navigate to="/sign-in" />;
+  return currentUser ? <CreateListing /> : <Navigate to="/sign-in" />;
 }
