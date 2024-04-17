@@ -8,6 +8,7 @@ import PrivateRouteProfile from "./components/PrivateRouteProfile";
 import PrivateRouteUpdateListing from "./components/PrivateRouteUpdateListing";
 import PrivateRouteCreateListing from "./components/PrivateRouteCreateListing";
 import PrivateRouteListing from "./components/PrivateRouteListing";
+import Search from "./pages/Search";
 
 function App() {
   return (
@@ -18,16 +19,14 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/search" element={<Search />} />
         <Route path="/profile" element={<PrivateRouteProfile />} />
         <Route path="/create-listing" element={<PrivateRouteCreateListing />} />
         <Route
           path="/update-listing/:listingId"
           element={<PrivateRouteUpdateListing />}
         />
-        <Route
-          path="/listing/:listingId"
-          element={<PrivateRouteListing />}
-        />
+        <Route path="/listing/:listingId" element={<PrivateRouteListing />} />
       </Routes>
     </BrowserRouter>
   );
