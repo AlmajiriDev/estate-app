@@ -12,12 +12,14 @@ export default function Search() {
     offer: false,
     sort: "created_at",
     order: "desc",
+    limit: 9,
   });
 
   const [loading, setLoading] = useState(false);
   const [listings, setListings] = useState([]);
+  const [showMore, setShowMore] = useState(false);
 
-  // console.log(sidebarData);
+  // console.log(listings.length);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
@@ -28,6 +30,7 @@ export default function Search() {
     const offerFromUrl = urlParams.set("offer", sidebarData.offer);
     const sortFromUrl = urlParams.set("sort", sidebarData.sort);
     const orderFromUrl = urlParams.set("order", sidebarData.order);
+    const limitFromUrl = urlParams.set("limit", sidebarData.limit);
 
     if (
       searchTermFromUrl ||
@@ -36,7 +39,8 @@ export default function Search() {
       furnishedFromUrl ||
       offerFromUrl ||
       sortFromUrl ||
-      orderFromUrl
+      orderFromUrl ||
+      limitFromUrl
     ) {
       setSidebarData({
         searchTerm: searchTermFromUrl || "",
@@ -46,6 +50,7 @@ export default function Search() {
         offer: offerFromUrl === "true" ? true : false,
         sort: sortFromUrl || "created_at",
         order: orderFromUrl || "desc",
+        limit: limitFromUrl || 0,
       });
     }
 
@@ -54,7 +59,12 @@ export default function Search() {
       const searchQuery = urlParams.toString();
       const res = await fetch(`/api/listing/get?${searchQuery}`);
       const data = await res.json();
-      console.log("rrrrrrrrrrrr", data);
+      if (data.length > 8) {
+        setShowMore(true);
+      } else {
+        setShowMore(false);
+      }
+      // console.log("rrrrrrrrrrrr", data);
       setListings(data);
       setLoading(false);
     };
@@ -108,6 +118,14 @@ export default function Search() {
     urlParams.set("order", sidebarData.order);
     const searchQuery = urlParams.toString();
     navigate(`/search?${searchQuery}`);
+  };
+
+  const onShowMOreClick = () => {
+    const numberOfListings = listings.length;
+    console.log(numberOfListings);
+    const startIndex = numberOfListings;
+    const urlParams = new URLSearchParams(location.search);
+    urlParams.set(`limit`, startIndex);
   };
   return (
     <div className="flex flex-col md:flex-row">
@@ -231,6 +249,14 @@ export default function Search() {
               <ListingItem key={listing._id} listing={listing} />
             ))}
         </div>
+        {showMore && (
+          <button
+            className="text-green-700 hover:underline p-7 text-center w-full"
+            onClick={() => onShowMOreClick()}
+          >
+            Show more
+          </button>
+        )}
       </div>
     </div>
   );
