@@ -5,7 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon api"
+    "dev": "nodemon api",
+    "build": "npm install && npm install --prefix cleint && npm run build --prefix client"
+
   },
   "keywords": [],
   "author": "",
