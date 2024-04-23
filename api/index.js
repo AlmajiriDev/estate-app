@@ -32,14 +32,13 @@ app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/listing", listingRouter);
 
-// Get the directory name using import.meta.url
-const __dirname = path.dirname(new URL(import.meta.url).pathname);
-// Serve static files
-app.use(express.static(path.join(__dirname, "/client/dist")));
+// Serve static files from the 'client/dist' directory
+const staticPath = path.join(__dirname, "client", "dist");
+app.use(express.static(staticPath));
 
+// Serve index.html for any other routes
 app.get("*", (req, res) => {
-  // Serve index.html for any other routes
-  res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+  res.sendFile(path.join(staticPath, "index.html"));
 });
 
 app.use((err, req, res, next) => {
