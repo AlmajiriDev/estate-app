@@ -37,9 +37,9 @@ const __dirname = path.dirname(new URL(import.meta.url).pathname);
 // Serve static files
 app.use(express.static(path.join(__dirname, "/client/dist")));
 
-app.get('*', (req, res) => {
+app.get("*", (req, res) => {
   // Serve index.html for any other routes
-  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+  res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });
 
 app.use((err, req, res, next) => {
